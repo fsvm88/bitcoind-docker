@@ -14,7 +14,7 @@ RUN addgroup -g ${GROUP_ID} bitcoin && \
 RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories && \
     apk update && \
     apk upgrade && \
-    apk add bitcoin
+    apk add bitcoin su-exec
 
 ADD docker-entrypoint.sh ./bin /usr/local/bin/
 

@@ -6,9 +6,9 @@ set -ex
 btc_init
 
 if [ $# -gt 0 ]; then
-	args=("$@")
+	args="$@"
 else
-	args=("-rpcallowip=::/0")
+	args="-rpcallowip=::/0"
 fi
 
-exec bitcoind "${args[@]}"
+exec bitcoind "${args}"
