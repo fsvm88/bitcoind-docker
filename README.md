@@ -1,5 +1,5 @@
 # bitcoind-docker
-Minimal bitcoind docker image based on Alpine.  
+Minimal bitcoind docker image based on (temporarily) debian:11.  
 Most of the code is taken from https://github.com/kylemanna/docker-bitcoind,
 and re-adapted for modern Alpine.
 
