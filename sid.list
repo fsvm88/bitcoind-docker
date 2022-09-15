@@ -1,6 +1,0 @@
-# Testing repository - main, contrib and non-free branches
-deb http://deb.debian.org/debian testing main non-free contrib
-deb http://deb.debian.org/debian-security testing-security main non-free contrib
-
-# Unstable
-deb http://deb.debian.org/debian unstable main non-free contrib
