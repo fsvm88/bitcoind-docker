@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM fedora:37
 
 ARG USER_ID
 ARG GROUP_ID
@@ -8,11 +8,18 @@ ENV HOME /bitcoin
 ENV USER_ID ${USER_ID:-1000}
 ENV GROUP_ID ${GROUP_ID:-1000}
 
-RUN mkdir -p /usr/local/bin && \
-    echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-    addgroup -g ${GROUP_ID} bitcoin && \
-    adduser -u ${USER_ID} -G bitcoin -s /bin/ash -h /bitcoin -D bitcoin && \
-    apk add --update --no-cache bitcoin gosu
+RUN mkdir -p /usr/local/bin
+
+ADD https://github.com/tianon/gosu/releases/download/1.16/gosu-amd64 /usr/local/bin/gosu
+
+RUN chown root.root /usr/local/bin/gosu && \
+    chmod +x /usr/local/bin/gosu && \
+    groupadd -g ${GROUP_ID} bitcoin && \
+    useradd -u ${USER_ID} -g bitcoin -s /bin/bash -d /bitcoin -m bitcoin && \
+    dnf update -y && \
+    dnf install -y bitcoin-core-server && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf
 
 ADD docker-entrypoint.sh ./bin /usr/local/bin/
 
